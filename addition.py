@@ -1,3 +1,0 @@
-TOKEN = 'NzA4MDEwNzU5MjU4NTA1MzY4.Xr4seA.8zMXog2qgREF9bk_J3Fft9PGKOA'
-SENDER_EMAIL = 'PopTrackerBot@gmail.com'
-EMAIL_PASSWORD = 'PTracker2020'
