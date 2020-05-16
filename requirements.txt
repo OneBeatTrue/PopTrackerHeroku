@@ -1,4 +1,4 @@
 smtplib
-discord
+discord.py
 asyncio
 os
