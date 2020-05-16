@@ -174,9 +174,9 @@ class YLBotClient(discord.Client):
             return
 
 
-TOKEN = os.environ.get('TOKEN')
-SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+TOKEN = str(os.environ.get('TOKEN'))
+SENDER_EMAIL = str(os.environ.get('SENDER_EMAIL'))
+EMAIL_PASSWORD = str(os.environ.get('EMAIL_PASSWORD'))
 client = YLBotClient()
 client.run(TOKEN)
 
