@@ -1,11 +1,9 @@
 import smtplib
-from addition import TOKEN, SENDER_EMAIL, EMAIL_PASSWORD
+# from addition import TOKEN, SENDER_EMAIL, EMAIL_PASSWORD
 import discord
 import asyncio
 import time
-
-
-TOKEN = TOKEN
+import os
 
 
 class YLBotClient(discord.Client):
@@ -176,6 +174,9 @@ class YLBotClient(discord.Client):
             return
 
 
+TOKEN = os.environ.get('TOKEN')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 client = YLBotClient()
 client.run(TOKEN)
 
