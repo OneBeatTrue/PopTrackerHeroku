@@ -1,4 +1,4 @@
-smtplib
+smtplib.py
 discord.py
 asyncio
 os
