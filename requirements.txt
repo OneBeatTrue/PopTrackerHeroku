@@ -1,0 +1,4 @@
+smtplib
+discord
+asyncio
+os
