@@ -46,7 +46,7 @@ class YLBotClient(discord.Client):
             await message.channel.send(str(-time.timezone))
             now = [int(i) for i in str(time.asctime().split()[3]).split(':')]
             UTC = 4
-            ans = (now[0] * 3600 + now[1] * 60 + now[2] - time.timezone - UTC * 3600) % 86400
+            ans = (now[0] * 3600 + now[1] * 60 + now[2] + time.timezone + UTC * 3600) % 86400
             now[0] = ans // 3600
             now[1] = (ans % 3600) // 60
             now[2] = ans % 60
@@ -81,7 +81,7 @@ class YLBotClient(discord.Client):
                                        f'и будет идти {dop[2]} минут{s[2]}.')
             now = [int(i) for i in str(time.asctime().split()[3]).split(':')]
             UTC = 4
-            ans = (now[0] * 3600 + now[1] * 60 + now[2] - time.timezone - UTC * 3600) % 86400
+            ans = (now[0] * 3600 + now[1] * 60 + now[2] + time.timezone + UTC * 3600) % 86400
             now[0] = ans // 3600
             now[1] = (ans % 3600) // 60
             now[2] = ans % 60
