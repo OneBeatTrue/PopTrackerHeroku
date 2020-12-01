@@ -31,47 +31,6 @@ class YLBotClient(discord.Client):
         permissions = chann.permissions_for(message.author)
         return permissions.administrator
 
-    def is_correct_email(self, email):
-        if email.count('@') > 1 or email.count('@') == 0:
-            return False
-        [name, domain] = email.split('@')
-        if len(domain) < 3 or len(domain) > 256 or domain.count('.') == 0:
-            return False
-        includedomain = domain.split('.')
-        correctchrlist = list(range(ord('a'), ord('z') + 1))
-        correctchrlist.extend([ord('-'), ord('_')])
-        correctchrlist.extend(list(range(ord('0'), ord('9') + 1)))
-        for k in includedomain:
-            if k == '':
-                return False
-            for n in k:
-                if ord(n) not in correctchrlist:
-                    return False
-            if k[0] == '-' or k[len(k) - 1] == '-':
-                return False
-        if len(name) > 128:
-            return False
-        correctchrlist.extend([ord('.'), ord(';'), ord('"')])
-        onlyinquoteschrlist = [ord('!'), ord(','), ord(':')]
-        correctchrlist.extend(onlyinquoteschrlist)
-        if name.count('"') % 2 != 0:
-            return False
-        doubledot = False
-        inquotes = False
-        for k in name:
-            if k == '"':
-                inquotes = not inquotes
-            if (ord(k) in onlyinquoteschrlist) and (inquotes == False):
-                return False
-            if ord(k) not in correctchrlist:
-                return False
-            if k == '.':
-                if doubledot:
-                    return False
-                else:
-                    doubledot = True
-        return True
-
     async def on_message(self, message):
         if message.author == self.user:
             return
@@ -82,6 +41,9 @@ class YLBotClient(discord.Client):
             await message.channel.send('Чтобы отследить посещаемость урока, введите (на латинском) !set_lesson H M L '
                                        '(H и M - начало урока: часы и минуты; L - длительность)')
             await message.channel.send('Чтобы получить инструкцию снова, введите !help')
+        if "!time" in message.content.lower():
+            await message.channel.send(str(time.asctime().split()[3]))
+            await message.channel.send(str(-time.timezone))
         if "!set_lesson" in message.content.lower():
             a = message.content.lower().split()
             lesson = {}
@@ -111,8 +73,8 @@ class YLBotClient(discord.Client):
             await message.channel.send(f'Урок начнется в {str(dop[0]).zfill(2)}:{str(dop[1]).zfill(2)} '
                                        f'и будет идти {dop[2]} минут{s[2]}.')
             now = [int(i) for i in str(time.asctime().split()[3]).split(':')]
-            GMS = 4
-            ans = (now[0] * 3600 + now[1] * 60 + now[2] - time.timezone - GMS * 3600) % 86400
+            UTC = 4
+            ans = (now[0] * 3600 + now[1] * 60 + now[2] - time.timezone - UTC * 3600) % 86400
             now[0] = ans // 3600
             now[1] = (ans % 3600) // 60
             now[2] = ans % 60
