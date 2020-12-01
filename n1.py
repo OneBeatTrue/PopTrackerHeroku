@@ -111,6 +111,11 @@ class YLBotClient(discord.Client):
             await message.channel.send(f'Урок начнется в {str(dop[0]).zfill(2)}:{str(dop[1]).zfill(2)} '
                                        f'и будет идти {dop[2]} минут{s[2]}.')
             now = [int(i) for i in str(time.asctime().split()[3]).split(':')]
+            GMS = 4
+            ans = (now[0] * 3600 + now[1] * 60 + now[2] - time.timezone - GMS * 3600) % 86400
+            now[0] = ans // 3600
+            now[1] = (ans % 3600) // 60
+            now[2] = ans % 60
             if now[0] > dop[0] or now[0] == dop[0] and now[1] >= dop[1] :
                 dop[0] += 24
             await asyncio.sleep((dop[0] * 3600 + dop[1] * 60) - (now[0] * 3600 + now[1] * 60 + now[2]))
